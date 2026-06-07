@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════════
+   SpendWise — animations.css
+   All keyframes, transitions, and motion effects
+   ═══════════════════════════════════════════════ */
+
+/* ── Spinner ── */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--teal-light);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Table row entrance ── */
+tbody tr {
+  animation: rowIn 0.3s ease both;
+}
+
+@keyframes rowIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Toast entrance / exit ── */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.toast { animation: toastIn 0.3s ease both; }

@@ -1,0 +1,7 @@
+[
+  { "value": "Food",          "label": "Food",          "icon": "🍽", "cssClass": "cat-food"          },
+  { "value": "Transport",     "label": "Transport",     "icon": "🚌", "cssClass": "cat-transport"     },
+  { "value": "Lodging",       "label": "Lodging",       "icon": "🏨", "cssClass": "cat-lodging"       },
+  { "value": "Entertainment", "label": "Entertainment", "icon": "🎭", "cssClass": "cat-entertainment" },
+  { "value": "Other",         "label": "Other",         "icon": "📦", "cssClass": "cat-other"         }
+]

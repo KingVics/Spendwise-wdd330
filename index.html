@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpendWise — Travel Expense Tracker</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-brand">
+    <div class="brand-icon">💳</div>
+    <span class="brand-name">Spend<span>Wise</span></span>
+  </div>
+  <div class="nav-right">
+    <select class="trip-selector" id="tripSelect" title="Select trip"></select>
+    <button class="btn btn-ghost btn-sm" id="newTripBtn">＋ Trip</button>
+    <button class="btn btn-ghost btn-sm" id="exportBtn">⬇ CSV</button>
+  </div>
+</nav>
+
+<!-- ── PAGE ── -->
+<div class="page">
+
+  <!-- API Notice (hidden once real keys are added) -->
+  <!-- <div class="api-notice" id="apiNotice">
+    ⚠️
+    <div>
+      <strong>API Keys Required:</strong> Open <code>js/config.js</code> and replace
+      <code>YOUR_EXCHANGERATE_KEY</code> and <code>YOUR_FOURSQUARE_KEY</code> with your
+      actual keys from
+      <a href="https://www.exchangerate-api.com" target="_blank">exchangerate-api.com</a>
+      and
+      <a href="https://foursquare.com/developer" target="_blank">foursquare.com/developer</a>.
+      The app runs in demo mode until keys are set.
+    </div>
+  </div> -->
+
+  <!-- Settings Bar -->
+  <div class="settings-bar">
+    <label for="homeCurrency">Home Currency</label>
+    <select id="homeCurrency"></select>
+    <div class="divider"></div>
+    <label>Rate last updated:</label>
+    <span id="rateTimestamp" style="font-size:12px;color:var(--muted);font-family:var(--font-mono);">—</span>
+  </div>
+
+  <!-- Summary Strip -->
+  <div class="summary-strip" id="summaryStrip">
+    <div class="summary-card total">
+      <div class="summary-label">Total Spent</div>
+      <div class="summary-value" id="totalSpent">$0.00</div>
+      <div class="summary-sub"  id="totalCount">0 expenses</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">🍽 Food</div>
+      <div class="summary-value" id="catFood">$0.00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">🚌 Transport</div>
+      <div class="summary-value" id="catTransport">$0.00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">🏨 Lodging</div>
+      <div class="summary-value" id="catLodging">$0.00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">🎭 Entertainment</div>
+      <div class="summary-value" id="catEntertainment">$0.00</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">📦 Other</div>
+      <div class="summary-value" id="catOther">$0.00</div>
+    </div>
+  </div>
+
+  <!-- Main Grid: Form + Table -->
+  <div class="main-grid">
+
+    <!-- EXPENSE FORM -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-title">
+          <span class="icon">＋</span>
+          <span id="formTitle">Log Expense</span>
+        </div>
+      </div>
+
+      <form id="expenseForm" novalidate>
+        <div class="form-row">
+          <div class="field" id="amountField">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" placeholder="0.00" step="0.01" min="0">
+            <div class="error-text">Enter a valid amount</div>
+          </div>
+          <div class="field" id="currencyField">
+            <label for="currency">Currency</label>
+            <select id="currency"></select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field" id="categoryField">
+            <label for="category">Category</label>
+            <select id="category">
+              <option value="Food">🍽 Food</option>
+              <option value="Transport">🚌 Transport</option>
+              <option value="Lodging">🏨 Lodging</option>
+              <option value="Entertainment">🎭 Entertainment</option>
+              <option value="Other">📦 Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="expDate">Date</label>
+            <input type="date" id="expDate">
+          </div>
+        </div>
+
+        <div class="field" id="descField">
+          <label for="description">Description</label>
+          <input type="text" id="description" placeholder="e.g. Dinner at Nobu">
+          <div class="error-text">Add a description</div>
+        </div>
+
+        <div class="field autocomplete-wrap">
+          <label for="locationInput">Location (optional)</label>
+          <input type="text" id="locationInput" placeholder="Search venues..." autocomplete="off">
+          <div class="autocomplete-dropdown" id="autocompleteDropdown" style="display:none;"></div>
+        </div>
+
+        <!-- Live conversion preview -->
+        <div class="converted-preview" id="convertedPreview">
+          <span style="font-size:13px;color:var(--muted);">Enter amount to see conversion</span>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <button type="submit" class="btn btn-primary" style="flex:1;" id="submitBtn">
+            Add Expense
+          </button>
+          <button type="button" class="btn btn-ghost" id="cancelEditBtn" style="display:none;">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- EXPENSE TABLE -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-title">
+          <span>Expenses</span>
+          <span class="count-badge" id="expenseCount">0</span>
+        </div>
+        <div class="table-actions">
+          <select class="trip-selector" id="filterCategory" style="min-width:120px;">
+            <option value="">All categories</option>
+            <option value="Food">🍽 Food</option>
+            <option value="Transport">🚌 Transport</option>
+            <option value="Lodging">🏨 Lodging</option>
+            <option value="Entertainment">🎭 Entertainment</option>
+            <option value="Other">📦 Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="date">Date <span class="sort-icon">↕</span></th>
+              <th data-sort="description">Description <span class="sort-icon">↕</span></th>
+              <th data-sort="amount">Original <span class="sort-icon">↕</span></th>
+              <th data-sort="converted">Home Amt <span class="sort-icon">↕</span></th>
+              <th data-sort="category">Category <span class="sort-icon">↕</span></th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="expenseTableBody"></tbody>
+        </table>
+
+        <div id="emptyState" class="empty-state" style="display:none;">
+          <div class="empty-icon">✈️</div>
+          <div class="empty-title">No expenses yet</div>
+          <div class="empty-sub">Log your first expense using the form on the left</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.main-grid -->
+</div><!-- /.page -->
+
+<!-- New Trip Modal -->
+<div class="modal-overlay" id="tripModal">
+  <div class="modal">
+    <h3>✈️ New Trip</h3>
+    <div class="field">
+      <label for="tripNameInput">Trip Name</label>
+      <input type="text" id="tripNameInput" placeholder="e.g. Lagos → London Q2 2026">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelTripBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveTripBtn">Create Trip</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ── SCRIPTS (load order matters) ── -->
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/currency.js"></script>
+<script src="js/location.js"></script>
+<script src="js/trips.js"></script>
+<script src="js/expenses.js"></script>
+<script src="js/export.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>  <!-- entry point — must be last -->
+
+</body>
+</html>
