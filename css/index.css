@@ -1,0 +1,40 @@
+/* ═══════════════════════════════════════════════
+   SpendWise — index.css
+   Master Stylesheet – Imports All Modular CSS
+   ═══════════════════════════════════════════════ */
+
+@import 'animations.css';
+@import '_variables.css';
+@import '_reset.css';
+@import '_navigation.css';
+@import '_buttons.css';
+@import '_forms.css';
+@import '_cards.css';
+@import '_table.css';
+@import '_modal.css';
+@import '_toasts.css';
+@import '_utilities.css';
+
+/* ════════════════════════════════════════════════════════
+
+   MODULAR CSS STRUCTURE
+   
+   This stylesheet imports modular CSS chunks for better
+   maintainability and organization:
+   
+   1. animations.css    — Keyframes & motion effects
+   2. _variables.css    — Design tokens & CSS variables
+   3. _reset.css        — Global resets & base styles
+   4. _navigation.css   — Nav, header & brand
+   5. _buttons.css      — All button styles
+   6. _forms.css        — Forms, inputs, fields
+   7. _cards.css        — Cards, summary strip, page layout
+   8. _table.css        — Tables & row styles
+   9. _modal.css        — Modal dialogs
+   10. _toasts.css      — Toast notifications
+   11. _utilities.css   — Utility classes
+   
+   TOTAL: ~1,000 lines split across 11 focused modules
+   Each module is <100 lines and targets specific features.
+   
+   ════════════════════════════════════════════════════════ */

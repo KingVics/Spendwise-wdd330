@@ -5,7 +5,7 @@
 
 async function fetchRates(base) {
   // Demo mode — no real API key provided
-  if (EXCHANGERATE_KEY === 'YOUR_EXCHANGERATE_KEY') {
+  if (EXCHANGERATE_KEY === 'YOUR_REAL_API_KEY_HERE') {
     const demo = {
       USD: 1,    EUR: 0.92, GBP: 0.79,  NGN: 1580, CAD: 1.36,
       AUD: 1.54, JPY: 157,  CHF: 0.9,   CNY: 7.24, INR: 83.5,
@@ -27,7 +27,7 @@ async function fetchRates(base) {
   // Live API
   try {
     const res  = await fetch(`https://v6.exchangerate-api.com/v6/${EXCHANGERATE_KEY}/latest/${base}`);
-    const data = await res.json();
+        const data = await res.json();
     if (data.result !== 'success') throw new Error(data['error-type']);
     state.rates         = data.conversion_rates;
     state.rateBase      = data.base_code;

@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════
    SpendWise — app.js
    Global state object and app initialisation.
-   This file must be loaded LAST.
+
    ═══════════════════════════════════════════════ */
 
 // ── GLOBAL STATE ──────────────────────────────
@@ -76,13 +76,17 @@ async function init() {
     renderAll();
   }
 
-  // Hide API notice once real keys are set
-  if (EXCHANGERATE_KEY !== 'YOUR_EXCHANGERATE_KEY') {
-    document.getElementById('apiNotice').style.display = 'none';
+ 
+  if (EXCHANGERATE_KEY !== 'YOUR_REAL_API_KEY_HERE') {
+    const apiNoticeEl = document.getElementById('apiNotice');
+    if (apiNoticeEl) apiNoticeEl.style.display = 'none';
   }
 
-  // Fetch or restore exchange rates
-  if (!state.rates || Object.keys(state.rates).length === 0) {
+  // Fetch or restore exchange rates. If stored rates are demo-mode and
+  const hasRates = state.rates && Object.keys(state.rates).length > 0;
+  const savedIsDemo = typeof state.rateTimestamp === 'string' && state.rateTimestamp.toLowerCase().includes('demo');
+
+  if (!hasRates || (savedIsDemo && EXCHANGERATE_KEY !== 'YOUR_REAL_API_KEY_HERE')) {
     await fetchRates(state.homeCurrency);
   } else {
     document.getElementById('rateTimestamp').textContent = state.rateTimestamp || 'Cached';

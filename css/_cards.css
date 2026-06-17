@@ -1,0 +1,161 @@
+/* ═══════════════════════════════════════════════
+   SpendWise — _cards.css
+   Card Components: Summary, Form Card, Empty State
+   ═══════════════════════════════════════════════ */
+
+/* ── Page Layout ── */
+.page {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    animation: pageIn 0.4s ease both;
+}
+
+/* ── Main Grid ── */
+.main-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 820px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Summary Strip ── */
+.summary-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.summary-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+}
+
+/* Lift effect + Glow on hover */
+.summary-card:hover {
+    box-shadow: 0 8px 32px rgba(13, 148, 136, 0.2), 0 2px 8px rgba(13, 148, 136, 0.15);
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(13, 148, 136, 0.3);
+}
+
+/* Optional: Flip animation with data attribute */
+.summary-card.flip {
+    perspective: 1000px;
+}
+
+.summary-card.flip:hover {
+    animation: none;
+}
+
+.summary-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.summary-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+}
+
+.summary-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.summary-card.total .summary-value {
+    color: var(--teal);
+}
+
+/* ── Form Card ── */
+.form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    position: sticky;
+    top: 88px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.form-card:hover {
+    box-shadow: 0 4px 20px rgba(13, 148, 136, 0.12);
+}
+
+.form-card-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #f0fdfa, #f8fafc);
+}
+
+.form-card-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-card-title .icon {
+    color: var(--teal);
+}
+
+/* ── Empty State ── */
+.empty-state {
+    text-align: center;
+    padding: 64px 24px;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.empty-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.empty-sub {
+    font-size: 14px;
+    color: var(--muted);
+}

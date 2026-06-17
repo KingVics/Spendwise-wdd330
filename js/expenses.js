@@ -1,8 +1,4 @@
-/* ═══════════════════════════════════════════════
-   SpendWise — expenses.js
-   Expense CRUD, table render, summary render,
-   edit flow, and validation
-   ═══════════════════════════════════════════════ */
+
 
 // ── CRUD ──────────────────────────────────────
 

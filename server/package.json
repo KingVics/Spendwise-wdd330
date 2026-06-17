@@ -1,0 +1,13 @@
+{
+  "name": "spendwise-places-proxy",
+  "version": "1.0.0",
+  "description": "Local proxy for Foursquare Places API to avoid CORS during development",
+  "main": "proxy.js",
+  "scripts": {
+    "start": "node proxy.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "2.6.7"
+  }
+}

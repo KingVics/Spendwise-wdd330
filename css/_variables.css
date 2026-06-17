@@ -1,0 +1,36 @@
+/* ═══════════════════════════════════════════════
+   SpendWise — _variables.css
+   CSS Custom Properties & Design Tokens
+   ═══════════════════════════════════════════════ */
+
+:root {
+    /* ── Colors ── */
+    --teal: #0D9488;
+    --teal-dark: #0f766e;
+    --teal-light: #ccfbf1;
+    --teal-glow: rgba(13, 148, 136, 0.15);
+    --amber: #f59e0b;
+    --amber-light: #fef3c7;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+    --green: #22c55e;
+    --ink: #0c1220;
+    --ink-2: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --surface: #f8fafc;
+    --white: #ffffff;
+
+    /* ── Shadows ── */
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+    --card-shadow-hover: 0 4px 24px rgba(13, 148, 136, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+
+    /* ── Spacing ── */
+    --radius: 14px;
+    --radius-sm: 8px;
+
+    /* ── Typography ── */
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+}
