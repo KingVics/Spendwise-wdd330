@@ -110,15 +110,15 @@ function renderTable() {
     const catIcon  = CAT_ICONS[e.category]   || '📦';
 
     return `<tr>
-      <td class="td-date">${e.date}</td>
-      <td class="td-desc">
+      <td class="td-date" data-label="Date">${e.date}</td>
+      <td class="td-desc" data-label="Description">
         ${escHtml(e.description)}
         ${e.location ? `<div class="location">📍 ${escHtml(e.location)}</div>` : ''}
       </td>
-      <td class="td-orig">${formatCurrency(e.amount, e.currency)}</td>
-      <td class="td-home">${convertedDisplay}</td>
-      <td><span class="category-pill ${catClass}">${catIcon} ${e.category}</span></td>
-      <td class="td-actions">
+      <td class="td-orig" data-label="Original">${formatCurrency(e.amount, e.currency)}</td>
+      <td class="td-home" data-label="Home Amt">${convertedDisplay}</td>
+      <td data-label="Category"><span class="category-pill ${catClass}">${catIcon} ${e.category}</span></td>
+      <td class="td-actions" data-label="">
         <button class="btn btn-ghost btn-sm" onclick="startEdit('${e.id}')">✏️ Edit</button>
         <button class="btn btn-danger btn-sm" onclick="confirmDelete('${e.id}')">🗑</button>
       </td>

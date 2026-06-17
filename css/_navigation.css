@@ -9,6 +9,7 @@ nav {
     z-index: 100;
     background: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
     padding: 0 24px;
     height: 64px;
@@ -21,6 +22,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .brand-icon {
@@ -51,4 +53,65 @@ nav {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* ── Mobile: Compact nav ── */
+@media (max-width: 600px) {
+    nav {
+        padding: 0 14px;
+        height: auto;
+        min-height: 56px;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .brand-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .nav-right {
+        width: 100%;
+        gap: 8px;
+        justify-content: stretch;
+    }
+
+    .nav-right > * {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .nav-right select.trip-selector {
+        min-width: unset;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .nav-right .btn-sm {
+        padding: 6px 8px;
+        font-size: 11px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
 }

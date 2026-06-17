@@ -52,3 +52,16 @@
 .toast.info:hover {
     box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
 }
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+    .toast-container {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+    }
+
+    .toast {
+        max-width: 100%;
+    }
+}

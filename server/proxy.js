@@ -1,6 +1,5 @@
 /* Simple proxy for Foursquare Places API to avoid CORS during local development
-   Usage: set environment variable FOURSQUARE_KEY to your places API token,
-   then run `node server/proxy.js`.
+
 */
 
 const express = require('express');

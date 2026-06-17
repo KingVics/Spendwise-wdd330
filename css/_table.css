@@ -55,6 +55,7 @@
 
 .table-wrap {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ── Table ── */
@@ -86,11 +87,11 @@ thead th:hover {
     transition: all 0.15s ease;
 }
 
-theaed th.sorted {
+thead th.sorted {
     color: var(--teal);
 }
 
-theaed th .sort-icon {
+thead th .sort-icon {
     opacity: 0.4;
     margin-left: 4px;
     transition: opacity 0.15s;
@@ -103,7 +104,9 @@ thead th.sorted .sort-icon {
 /* ── Table Rows ── */
 tbody tr {
     border-bottom: 1px solid var(--border);
-    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+    transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s;
 }
 
 /* Lift + Glow effect on row hover */
@@ -115,11 +118,6 @@ tbody tr:hover {
 
 tbody tr:last-child {
     border-bottom: none;
-}
-
-/* Optional flip class for table rows */
-tbody tr.flip-row {
-    perspective: 1000px;
 }
 
 td {
@@ -205,4 +203,86 @@ td {
 .td-actions .btn {
     padding: 4px 8px;
     font-size: 11px;
+}
+
+/* ── Mobile: Card-based table layout ── */
+@media (max-width: 720px) {
+    .table-header {
+        padding: 16px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .table-actions {
+        width: 100%;
+    }
+
+    .table-actions .trip-selector {
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        display: block;
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 14px;
+        background: var(--white);
+    }
+
+    tbody tr:hover {
+        transform: none;
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    td:last-child {
+        border-bottom: none;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    .td-desc {
+        max-width: 100%;
+        text-align: right;
+    }
+
+    .td-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        padding-top: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .table-header {
+        padding: 12px;
+    }
+
+    tbody tr {
+        padding: 10px;
+        margin-bottom: 8px;
+    }
 }
