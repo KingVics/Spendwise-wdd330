@@ -6,7 +6,7 @@
 const EXCHANGERATE_KEY = '34004dd63043a526c33853f7';
 const FOURSQUARE_KEY = 'NG2EB2XG0ASHJF5FAH3ENN0KW1BEB3SZ2FXKJ4GIPQYFZU0I';
 
-const PLACES_PROXY = 'http://localhost:3000'
+const PLACES_PROXY = 'https://spendwise-wdd330.onrender.com'
 
 // ── Category metadata ──
 const CAT_CLASSES = {
