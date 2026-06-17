@@ -2,6 +2,7 @@
    SpendWise — ui.js
    Toast notifications, currency dropdowns,
    home-currency handler, and shared helpers
+   
    ═══════════════════════════════════════════════ */
 
 // ── TOAST ─────────────────────────────────────
